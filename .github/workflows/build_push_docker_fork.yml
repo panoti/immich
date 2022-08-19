@@ -3,11 +3,11 @@ name: Build and Push Docker Image - Fork
 on:
   push:
     branches: [dev]
-    paths:
-      - server/**
-      - machine-learning/**
-      - web/**
-      - nginx/**
+    #paths:
+    #  - server/**
+    #  - machine-learning/**
+    #  - web/**
+    #  - nginx/**
 
 env:
   # Use docker.io for Docker Hub if empty
@@ -46,7 +46,7 @@ jobs:
   # service with its coressponding entry file.
   build_and_push_server_monorepo_latest:
     needs: changes
-    if: ${{ needs.changes.outputs.server == 'true' }}
+    #if: ${{ needs.changes.outputs.server == 'true' }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -73,7 +73,7 @@ jobs:
             ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/immich-server:latest
   build_and_push_machine_learning_latest:
     needs: changes
-    if: ${{ needs.changes.outputs.machine-learning == 'true' }}
+    #if: ${{ needs.changes.outputs.machine-learning == 'true' }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -100,7 +100,7 @@ jobs:
             ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/immich-machine-learning:latest
   build_and_push_web_latest:
     needs: changes
-    if: ${{ needs.changes.outputs.web == 'true' }}
+    #if: ${{ needs.changes.outputs.web == 'true' }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -128,7 +128,7 @@ jobs:
             ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/immich-web:latest
   build_and_push_nginx_latest:
     needs: changes
-    if: ${{ needs.changes.outputs.nginx == 'true' }}
+    #if: ${{ needs.changes.outputs.nginx == 'true' }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
