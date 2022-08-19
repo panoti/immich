@@ -343,9 +343,9 @@ export class AssetService {
 
           /** Sending Partial Content With HTTP Code 206 */
           res.status(206).set({
-            'Content-Range': `bytes ${start}-${end}/${size}`,
+            'Content-Range': `bytes ${0}-${size}/${size}`,
             'Accept-Ranges': 'bytes',
-            'Content-Length': end - start + 1,
+            'Content-Length': size,
             'Content-Type': mimeType,
           });
 
@@ -354,6 +354,9 @@ export class AssetService {
           return new StreamableFile(videoStream);
         } else {
           res.set({
+            'Content-Range': 'bytes 0-42626518/42626519',
+            'Accept-Ranges': 'bytes',
+            'Content-Length': 42626519,
             'Content-Type': mimeType,
           });
 
