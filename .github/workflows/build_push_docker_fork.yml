@@ -1,9 +1,8 @@
 name: Build and Push Docker Image - Fork
 
 on:
-  workflow_dispatch:
   push:
-    branches: [main]
+    branches: [dev]
     paths:
       - server/**
       - machine-learning/**
