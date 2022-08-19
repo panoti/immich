@@ -12,6 +12,7 @@
 	const dispatch = createEventDispatcher();
 
 	let videoPlayerNode: HTMLVideoElement;
+	let videoSourceNode: HTMLSourceElement;
 	let isVideoLoading = true;
 
 	onMount(async () => {
@@ -41,7 +42,9 @@
 			}
 
 			const videoData = URL.createObjectURL(data);
-			videoPlayerNode.src = videoData;
+			// videoPlayerNode.src = videoData;
+			videoSourceNode.src = videoData;
+			videoSourceNode.type = asset.mimeType || 'video/mp4';
 
 			videoPlayerNode.load();
 
@@ -64,6 +67,7 @@
 >
 	{#if asset}
 		<video controls class="h-full object-contain" bind:this={videoPlayerNode}>
+			<source bind:this={videoSourceNode}>
 			<track kind="captions" />
 		</video>
 
