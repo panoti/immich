@@ -12,7 +12,7 @@
 	const dispatch = createEventDispatcher();
 
 	let videoPlayerNode: HTMLVideoElement;
-	let videoSourceNode: HTMLSourceElement;
+	// let videoSourceNode: HTMLSourceElement;
 	let isVideoLoading = true;
 
 	onMount(async () => {
@@ -26,25 +26,31 @@
 	const loadVideoData = async () => {
 		isVideoLoading = true;
 
+		// const stream = await navigator.mediaDevices.getUserMedia({video: true, audio: true});
+		// videoPlayerNode.srcObject = stream;
+
 		try {
+			console.log('test1');
 			const { data } = await api.assetApi.serveFile(
 				asset.deviceAssetId,
 				asset.deviceId,
 				false,
 				true,
 				{
-					responseType: 'blob'
+					responseType: 'stream'
 				}
 			);
 
-			if (!(data instanceof Blob)) {
-				return;
-			}
+			// if (!(data instanceof Blob)) {
+			// 	return;
+			// }
 
-			const videoData = URL.createObjectURL(data);
+			console.log('test2', data);
+			// const videoData = URL.createObjectURL(data);
+			videoPlayerNode.srcObject = data as any;
 			// videoPlayerNode.src = videoData;
-			videoSourceNode.src = videoData;
-			videoSourceNode.type = asset.mimeType || 'video/mp4';
+			// videoSourceNode.src = videoData;
+			// videoSourceNode.type = asset.mimeType || 'video/mp4';
 
 			videoPlayerNode.load();
 
@@ -56,7 +62,7 @@
 				isVideoLoading = false;
 			};
 
-			return videoData;
+			// return videoData;
 		} catch (e) {}
 	};
 </script>
@@ -67,7 +73,7 @@
 >
 	{#if asset}
 		<video controls class="h-full object-contain" bind:this={videoPlayerNode}>
-			<source bind:this={videoSourceNode}>
+			<!-- <source bind:this={videoSourceNode}> -->
 			<track kind="captions" />
 		</video>
 
