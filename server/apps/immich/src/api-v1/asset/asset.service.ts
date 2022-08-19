@@ -354,6 +354,9 @@ export class AssetService {
           return new StreamableFile(videoStream);
         } else {
           res.set({
+            'Content-Range': `bytes ${0}-${size}/${size}`,
+            'Accept-Ranges': 'bytes',
+            'Content-Length': size,
             'Content-Type': mimeType,
           });
 
