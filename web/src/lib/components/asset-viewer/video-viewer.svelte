@@ -12,7 +12,6 @@
 	const dispatch = createEventDispatcher();
 
 	let videoPlayerNode: HTMLVideoElement;
-	// let videoSourceNode: HTMLSourceElement;
 	let isVideoLoading = true;
 
 	onMount(async () => {
@@ -26,31 +25,23 @@
 	const loadVideoData = async () => {
 		isVideoLoading = true;
 
-		// const stream = await navigator.mediaDevices.getUserMedia({video: true, audio: true});
-		// videoPlayerNode.srcObject = stream;
-
 		try {
-			console.log('test1');
 			const { data } = await api.assetApi.serveFile(
 				asset.deviceAssetId,
 				asset.deviceId,
 				false,
 				true,
 				{
-					responseType: 'stream'
+					responseType: 'blob'
 				}
 			);
 
-			// if (!(data instanceof Blob)) {
-			// 	return;
-			// }
+			if (!(data instanceof Blob)) {
+				return;
+			}
 
-			console.log('test2', data);
-			// const videoData = URL.createObjectURL(data);
-			videoPlayerNode.srcObject = data as any;
-			// videoPlayerNode.src = videoData;
-			// videoSourceNode.src = videoData;
-			// videoSourceNode.type = asset.mimeType || 'video/mp4';
+			const videoData = URL.createObjectURL(data);
+			videoPlayerNode.src = videoData;
 
 			videoPlayerNode.load();
 
@@ -62,7 +53,7 @@
 				isVideoLoading = false;
 			};
 
-			// return videoData;
+			return videoData;
 		} catch (e) {}
 	};
 </script>
@@ -73,7 +64,6 @@
 >
 	{#if asset}
 		<video controls class="h-full object-contain" bind:this={videoPlayerNode}>
-			<!-- <source bind:this={videoSourceNode}> -->
 			<track kind="captions" />
 		</video>
 
