@@ -1,8 +1,8 @@
 import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
-import { immichAppConfig } from '../../../libs/config/app.config';
 import { UserModule } from './api-v1/user/user.module';
 import { AssetModule } from './api-v1/asset/asset.module';
 import { AuthModule } from './api-v1/auth/auth.module';
+import { immichAppConfig } from './config/app.config';
 import { ImmichJwtModule } from './modules/immich-jwt/immich-jwt.module';
 import { DeviceInfoModule } from './api-v1/device-info/device-info.module';
 import { ConfigModule } from '@nestjs/config';

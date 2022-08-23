@@ -13,7 +13,6 @@ import { BullModule } from '@nestjs/bull';
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { immichAppConfig } from '../../../libs/config/app.config';
 import { CommunicationModule } from '../../immich/src/api-v1/communication/communication.module';
 import { MicroservicesService } from './microservices.service';
 import { AssetUploadedProcessor } from './processors/asset-uploaded.processor';
@@ -23,7 +22,6 @@ import { VideoTranscodeProcessor } from './processors/video-transcode.processor'
 
 @Module({
   imports: [
-    ConfigModule.forRoot(immichAppConfig),
     DatabaseModule,
     TypeOrmModule.forFeature([UserEntity, ExifEntity, AssetEntity, SmartInfoEntity]),
     BullModule.forRootAsync({
