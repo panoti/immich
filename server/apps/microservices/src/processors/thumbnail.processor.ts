@@ -18,7 +18,7 @@ import { Job, Queue } from 'bull';
 import ffmpeg from 'fluent-ffmpeg';
 import { randomUUID } from 'node:crypto';
 import { existsSync, mkdirSync } from 'node:fs';
-import { join} from 'node:path';
+import { join } from 'node:path';
 import sharp from 'sharp';
 import { Repository } from 'typeorm/repository/Repository';
 import { CommunicationGateway } from '../../../immich/src/api-v1/communication/communication.gateway';
