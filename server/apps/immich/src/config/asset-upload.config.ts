@@ -3,7 +3,7 @@ import { HttpException, HttpStatus } from '@nestjs/common';
 import { MulterOptions } from '@nestjs/platform-express/multer/interfaces/multer-options.interface';
 import { existsSync, mkdirSync } from 'fs';
 import { diskStorage } from 'multer';
-import { extname } from 'path';
+import { extname, join } from 'path';
 import { Request } from 'express';
 import { randomUUID } from 'crypto';
 
