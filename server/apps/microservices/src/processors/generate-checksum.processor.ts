@@ -18,7 +18,7 @@ export class GenerateChecksumProcessor {
   @Process()
   async generateChecksum() {
     let hasNext = true;
-    let pageSize = 10;
+    let pageSize = 200;
     let offset = 0;
 
     while (hasNext) {
@@ -30,7 +30,6 @@ export class GenerateChecksumProcessor {
         take: pageSize,
       });
 
-      Logger.log(`round ${offset} - ${pageSize}: ${assets?.length}`);
       if (!assets?.length) {
         hasNext = false; // avoid using break
       } else {
