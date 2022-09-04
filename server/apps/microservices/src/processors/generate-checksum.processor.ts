@@ -18,7 +18,7 @@ export class GenerateChecksumProcessor {
   @Process()
   async generateChecksum() {
     let hasNext = true;
-    let pageSize = 200;
+    let pageSize = 10;
     let offset = 0;
 
     while (hasNext) {
