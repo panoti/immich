@@ -30,6 +30,7 @@ export class GenerateChecksumProcessor {
         take: pageSize,
       });
 
+      Logger.log(`round ${offset} - ${pageSize}: ${assets?.length}`);
       if (!assets?.length) {
         hasNext = false; // avoid using break
       } else {
