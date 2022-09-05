@@ -11,7 +11,8 @@ import {
   JpegGeneratorProcessor,
 } from '@app/job';
 import { InjectQueue, Process, Processor } from '@nestjs/bull';
-import { Logger } from '@nestjs/common';
+import { Inject, Logger } from '@nestjs/common';
+import { ClientProxy } from '@nestjs/microservices';
 import { InjectRepository } from '@nestjs/typeorm';
 import { mapAsset } from 'apps/immich/src/api-v1/asset/response-dto/asset-response.dto';
 import { Job, Queue } from 'bull';
@@ -19,6 +20,7 @@ import ffmpeg from 'fluent-ffmpeg';
 import { randomUUID } from 'node:crypto';
 import { existsSync, mkdirSync } from 'node:fs';
 import { join } from 'node:path';
+import { firstValueFrom } from 'rxjs';
 import sharp from 'sharp';
 import { Repository } from 'typeorm/repository/Repository';
 import { CommunicationGateway } from '../../../immich/src/api-v1/communication/communication.gateway';
@@ -36,6 +38,9 @@ export class ThumbnailGeneratorProcessor {
 
     @InjectQueue(metadataExtractionQueueName)
     private metadataExtractionQueue: Queue,
+
+    @Inject('MACHINE_LEARNING_SERVICE')
+    private mlClient: ClientProxy,
   ) {}
 
   @Process({ name: generateJPEGThumbnailProcessorName, concurrency: 3 })
@@ -61,8 +66,7 @@ export class ThumbnailGeneratorProcessor {
       asset.resizePath = jpegThumbnailPath;
 
       await this.thumbnailGeneratorQueue.add(generateWEBPThumbnailProcessorName, { asset }, { jobId: randomUUID() });
-      await this.metadataExtractionQueue.add(imageTaggingProcessorName, { asset }, { jobId: randomUUID() });
-      await this.metadataExtractionQueue.add(objectDetectionProcessorName, { asset }, { jobId: randomUUID() });
+      await firstValueFrom(this.mlClient.emit('asset.created', { resizePath: asset.resizePath }));
       this.wsCommunicationGateway.server.to(asset.userId).emit('on_upload_success', JSON.stringify(mapAsset(asset)));
     }
 
