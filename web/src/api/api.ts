@@ -42,4 +42,4 @@ class ImmichApi {
 
 export const api = new ImmichApi();
 export const serverApi = new ImmichApi();
-serverApi.setBaseUrl(env.API_URL || 'http://immich-server:3001');
+serverApi.setBaseUrl(env.PUBLIC_API_URL || 'http://immich-server:3001');
