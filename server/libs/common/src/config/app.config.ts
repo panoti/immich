@@ -17,8 +17,8 @@ export const immichAppConfig: ConfigModuleOptions = {
       otherwise: Joi.string().required(),
     }),
     WEBHOOK_URL: Joi.string().optional().allow(null, ''),
-    UPLOAD_DIR: Joi.string().optional().allow(null, ''),
-    IMAGE_CACHE_DIR: Joi.string().optional().allow(null, ''),
-    VIDEO_CACHE_DIR: Joi.string().optional().allow(null, ''),
+    UPLOAD_DIR: Joi.string().optional().default('./upload'),
+    IMAGE_CACHE_DIR: Joi.string().optional().default('./cache'),
+    VIDEO_CACHE_DIR: Joi.string().optional().default('./cache'),
   }),
 };
