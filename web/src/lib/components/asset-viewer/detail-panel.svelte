@@ -107,6 +107,35 @@
 	</div>
 
 	<div class="px-4 py-4">
+		{#if albums.length > 0}
+			<p class="text-sm pb-4">APPEARS IN</p>
+		{/if}
+		{#each albums as album}
+			<a sveltekit:prefetch href={`/albums/${album.id}`}>
+				<div class="flex gap-4 py-2 hover:cursor-pointer" on:click={() => dispatch('click', album)}>
+					<div>
+						<img
+							alt={album.albumName}
+							class="w-[50px] h-[50px] object-cover rounded"
+							src={`/api/asset/thumbnail/${album.albumThumbnailAssetId}?format=JPEG`}
+						/>
+					</div>
+
+					<div class="mt-auto mb-auto">
+						<p>{album.albumName}</p>
+						<div class="flex gap-2 text-sm">
+							<p>{album.assetCount} items</p>
+							{#if album.shared}
+								<p>· Shared</p>
+							{/if}
+						</div>
+					</div>
+				</div>
+			</a>
+		{/each}
+	</div>
+
+	<div class="px-4 py-4">
 		{#if !asset.exifInfo}
 			<p class="text-sm pb-4">NO EXIF INFO AVAILABLE</p>
 		{:else}
@@ -202,37 +231,6 @@
 <div class={`${asset.exifInfo?.latitude ? 'visible' : 'hidden'}`}>
 	<div class="h-[360px] w-full" id="map" />
 </div>
-
-<section class="p-2">
-	<div class="px-4 py-4">
-		{#if albums.length > 0}
-			<p class="text-sm pb-4">APPEARS IN</p>
-		{/if}
-		{#each albums as album}
-			<a sveltekit:prefetch href={`/albums/${album.id}`}>
-				<div class="flex gap-4 py-2 hover:cursor-pointer" on:click={() => dispatch('click', album)}>
-					<div>
-						<img
-							alt={album.albumName}
-							class="w-[50px] h-[50px] object-cover rounded"
-							src={`/api/asset/thumbnail/${album.albumThumbnailAssetId}?format=JPEG`}
-						/>
-					</div>
-
-					<div class="mt-auto mb-auto">
-						<p>{album.albumName}</p>
-						<div class="flex gap-2 text-sm">
-							<p>{album.assetCount} items</p>
-							{#if album.shared}
-								<p>· Shared</p>
-							{/if}
-						</div>
-					</div>
-				</div>
-			</a>
-		{/each}
-	</div>
-</section>
 
 <style>
 	@import 'https://unpkg.com/leaflet@1.7.1/dist/leaflet.css';
