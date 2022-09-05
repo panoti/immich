@@ -16,7 +16,7 @@ export const immichAppConfig: ConfigModuleOptions = {
       then: Joi.string().optional().allow(null, ''),
       otherwise: Joi.string().required(),
     }),
-    WEBHOOK_URL: Joi.string().optional().default('http://immich-machine-learning:3003/webhook'),
+    WEBHOOK_URL: Joi.string().optional().allow(null, ''),
     UPLOAD_DIR: Joi.string().optional().allow(null, ''),
     IMAGE_CACHE_DIR: Joi.string().optional().allow(null, ''),
     VIDEO_CACHE_DIR: Joi.string().optional().allow(null, ''),
