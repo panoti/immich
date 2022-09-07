@@ -20,10 +20,10 @@ jobs:
     runs-on: ubuntu-latest
     # Set job outputs to values from filter step
     outputs:
-      server: ${{ steps.filter.outputs.server }}
-      machine-learning: ${{ steps.filter.outputs.machine-learning }}
-      web: ${{ steps.filter.outputs.web }}
-      nginx: ${{ steps.filter.outputs.nginx }}
+      backend: ${{ steps.filter.outputs.backend }}
+      ml-worker: ${{ steps.filter.outputs.ml-worker }}
+      webapp: ${{ steps.filter.outputs.webapp }}
+      proxy: ${{ steps.filter.outputs.proxy }}
     steps:
     # For pull requests it's not necessary to checkout the code
     - uses: actions/checkout@v3
@@ -97,7 +97,7 @@ jobs:
             ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/ml-worker:latest
   build_and_push_webapp_latest:
     needs: changes
-    if: ${{ needs.changes.outputs.webapp == 'true' }}
+    #if: ${{ needs.changes.outputs.webapp == 'true' }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
