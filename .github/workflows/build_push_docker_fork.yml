@@ -3,11 +3,11 @@ name: Build and Push Docker Image - Fork
 on:
   push:
     branches: [dev]
-    paths:
-      - server/**
-      - machine-learning/**
-      - web/**
-      - nginx/**
+    #paths:
+    #  - server/**
+    #  - machine-learning/**
+    #  - web/**
+    #  - nginx/**
 
 env:
   # Use docker.io for Docker Hub if empty
