@@ -12,6 +12,7 @@ export const databaseConfig: PostgresConnectionOptions = {
   synchronize: false,
   migrations: [__dirname + '/../migrations/*.{js,ts}'],
   migrationsRun: true,
+  logging: ["query", "error"],
 };
 
 export const dataSource = new DataSource(databaseConfig);
