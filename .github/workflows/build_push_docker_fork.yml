@@ -3,11 +3,11 @@ name: Build and Push Docker Image - Fork
 on:
   push:
     branches: [dev]
-    #paths:
-    #  - server/**
-    #  - machine-learning/**
-    #  - web/**
-    #  - nginx/**
+    paths:
+      - server/**
+      - machine-learning/**
+      - web/**
+      - nginx/**
 
 env:
   # Use docker.io for Docker Hub if empty
@@ -97,7 +97,7 @@ jobs:
             ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/ml-worker:latest
   build_and_push_webapp_latest:
     needs: changes
-    #if: ${{ needs.changes.outputs.webapp == 'true' }}
+    if: ${{ needs.changes.outputs.webapp == 'true' }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
