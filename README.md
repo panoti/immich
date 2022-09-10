@@ -27,6 +27,7 @@
 - [Features](#features)
 - [Screenshots](#screenshots)
 - [Installation](#installation)
+- [Update](#update)
 - [Mobile App](#-mobile-app)
 - [Development](#development)
 - [Support](#support)
@@ -173,24 +174,13 @@ wget -O .env https://raw.githubusercontent.com/immich-app/immich/main/docker/.en
 
   <br/>  
 
-## Advanced configurations
+## Update
 
-Immich also support users store their original assets and cache files (thumbnail images, encoded videos) in different locations. But we need make some changes below:
-
-* At **Step 1 - Download necessary files**
-
-Get `docker-compose.advanced.yml` instead.
+If you have installed, you can update the application by navigate to the directory that contains the `docker-compose.yml` file and run the following command:
 
 ```bash
-wget -O docker-compose.yml https://raw.githubusercontent.com/immich-app/immich/main/docker/docker-compose.advanced.yml
+docker-compose pull && docker-compose up -d
 ```
-
-* At **Step 2 - Populate .env file with customed information**
-
-  - Uncomment variable `CACHE_LOCATION`.
-  - Populate `CACHE_LOCATION` as prefered location for storing thumbnail files, encoded videos.
-
-* Following the rest of steps normally.
 
 # Mobile app
 
